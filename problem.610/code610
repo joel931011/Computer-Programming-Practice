@@ -1,41 +1,46 @@
-char c[1600];
-int num[1600];
+#include<iostream>
+using namespace std;
+#define MOD 998244353
 
+char c[1600];
+long long num[1600];
 int i;
-int opr() {
+
+long long opr() {
     if (c[i] == 'f') {
         i++;
-        int x = opr();
-        return (x * 2 - 3 + MOD) % MOD;
+        long long x = opr();
+        return (2 * x - 3 + MOD) % MOD;
     } else if (c[i] == 'g') {
         i++;
-        int x = opr();
-        int y = opr();
-        return (x * 2 + y - 7 + MOD) % MOD;
+        long long x = opr();
+        long long y = opr();
+        return (2 * x + y - 7 + MOD * 2) % MOD;
     } else if (c[i] == 'h') {
         i++;
-        int x = opr();
-        int y = opr();
-        int z = opr();
-        return (x * 3 - y * 2 + z + MOD*2) % MOD;
+        long long x = opr();
+        long long y = opr();
+        long long z = opr();
+        return ((3 * x - 2 * y + z) % MOD + MOD) % MOD;
     } else {
         i++;
-        return num[i-1];
+        return (num[i - 1] % MOD + MOD) % MOD;
     }
 }
-int n;
+
+int main() {
+    int n;
     cin >> n;
     for (int i = 0 ; i < n ; i++) {
-        char s[6];
+        char s[20];
         cin >> s;
-        if (s[0] >= '0' && s[0] <= '9' || s[0] == '-') {
+        if (((s[0] >= '0' && s[0] <= '9') || s[0] == '-')) {
             num[i] = 0;
             bool ng = 0;
             if (s[0] == '-') ng = 1;
             for (int j = 0 ; s[j] != '\0' ; j++) {
                 if (s[j] == '-') continue; 
                 num[i] = num[i] * 10 + s[j] - '0';
-                //cout << s[j] << " " << (int)num[i] << "\n";
             }
             if (ng) num[i] *= -1;
             c[i] = 0;
@@ -44,5 +49,6 @@ int n;
         }
     }
     i = 0;
-    int ans = opr();
-    cout << ans << '\n';
+    long long ans = opr();
+    cout << ans % MOD << '\n';
+}
