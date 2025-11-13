@@ -1,0 +1,48 @@
+char c[1600];
+int num[1600];
+
+int i;
+int opr() {
+    if (c[i] == 'f') {
+        i++;
+        int x = opr();
+        return (x * 2 - 3 + MOD) % MOD;
+    } else if (c[i] == 'g') {
+        i++;
+        int x = opr();
+        int y = opr();
+        return (x * 2 + y - 7 + MOD) % MOD;
+    } else if (c[i] == 'h') {
+        i++;
+        int x = opr();
+        int y = opr();
+        int z = opr();
+        return (x * 3 - y * 2 + z + MOD*2) % MOD;
+    } else {
+        i++;
+        return num[i-1];
+    }
+}
+int n;
+    cin >> n;
+    for (int i = 0 ; i < n ; i++) {
+        char s[6];
+        cin >> s;
+        if (s[0] >= '0' && s[0] <= '9' || s[0] == '-') {
+            num[i] = 0;
+            bool ng = 0;
+            if (s[0] == '-') ng = 1;
+            for (int j = 0 ; s[j] != '\0' ; j++) {
+                if (s[j] == '-') continue; 
+                num[i] = num[i] * 10 + s[j] - '0';
+                //cout << s[j] << " " << (int)num[i] << "\n";
+            }
+            if (ng) num[i] *= -1;
+            c[i] = 0;
+        } else {
+            c[i] = s[0];
+        }
+    }
+    i = 0;
+    int ans = opr();
+    cout << ans << '\n';
