@@ -1,0 +1,64 @@
+
+#include <iostream>
+using namespace std;
+int main()
+{
+    int N, M;
+    cin >> N >> M;
+    long long L;
+    cin >> L;
+    int **arr = new int*[N];
+    for(int i = 0;i < N;i++){
+        arr[i] = new int [M];
+    }
+    for(int i = 0;i < N;i++){
+        for(int j = 0;j < M;j++){
+            cin >> arr[i][j];
+        }
+    }
+    int *sub = new int [(N * M)];
+    int idx = 0;
+    for(int i = 0;i < N;i++){
+        for(int j = 0;j < M;j++){
+            sub[idx] = arr[i][j];
+            idx++;
+        }
+    }
+    for(int i = 0;i < idx;i++){
+        for(int j = 0;j < idx - 1;j++){
+            if(sub[j] > sub[j + 1]){
+                int a = sub[j];
+                sub[j] = sub[j+1];
+                sub[j + 1] = a;
+            }
+        }
+    }
+    double level = sub[0];
+    for(int i = 0;i < idx - 1;i++){
+        long long diff = sub[i + 1] - sub[i];
+        long long need = diff * (i + 1);
+        if(L > need){
+            L -= need;
+            level = sub[i + 1];
+        }else{
+            level = sub[i] + (double)L / (i + 1);
+            L = 0;
+            break;
+        }
+    }
+    if (L > 0)
+    {
+        level += (double)L / (idx);
+    }
+    for(int i = 0;i < N;i++){
+        for(int j = 0;j < M;j++){
+            if(arr[i][j] < level){
+                cout << 1 << " ";
+            }else{
+                cout << 0 << " ";
+            }
+        }
+        cout << endl;
+    }
+    return 0;
+}
