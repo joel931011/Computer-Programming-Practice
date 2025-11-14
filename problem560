@@ -1,0 +1,89 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main(){
+    int n;
+    cin >> n;
+    cin.ignore();
+    int base[n];
+    int num[n];
+    for(int i = 0; i < n; i++) num[i] = 0;
+    char **input = new char*[n];
+    for (int i = 0; i < n; i++)
+    {
+        input[i] = new char[100];
+        cin.getline(input[i], 100);
+        for (int j = 7;input[i][j] != '\0' ; j++)
+        {
+            num[i]++;
+        }
+        if (input[i][4] == '1')
+        {
+            base[i] = 1;
+        }else{
+            base[i] = 3;
+        }
+    }
+    char **out = new char *[n];
+    for (int i = 0; i < n; i++)
+    {
+        out[i] = new char[100];
+        if (base[i] == 1)
+        {
+            unsigned long long sum = 0;
+            for (int j = 7; input[i][j] != '\0'; j++)
+            {
+                int a = input[i][j] - '0';
+                sum = sum * 10 + a;
+            }
+            int idx = num[i] - 1;
+            while (sum / 36 != 0)
+            {
+                if (sum % 36 < 10)
+                {
+                    out[i][idx] = (sum % 36) + '0';
+                }else{
+                    out[i][idx] = (sum % 36) + 'A' - 10;
+                }
+                sum /= 36; 
+                idx--;
+            }
+            if (sum % 36 < 10){
+                out[i][idx] = (sum % 36) + '0';
+            }else{
+                out[i][idx] = (sum % 36) + 'A' - 10;
+            }
+            for (int k = idx; k < num[i]; k++)
+            {
+                cout << out[i][k];
+            }
+            cout << endl;
+        }else{            
+                unsigned long long sum = 0;
+            for (int j = 7; input[i][j] != '\0'; j++)
+            {
+                char c = input[i][j];
+                int a;
+                if (c >= '0' && c <= '9') {
+                    a = c - '0';
+                }
+                else if (c >= 'A' && c <= 'Z'){
+                     a = c - 'A' + 10;
+                }
+                sum = sum * 36 + a;
+            }
+            int idx = 100 - 1;
+            while (sum / 10 != 0)
+            {
+                out[i][idx] = sum % 10 + '0';
+                sum /= 10;
+                idx--;
+            }
+            out[i][idx] = sum % 10 + '0';
+            for (int k = idx; k < 100; k++) cout << out[i][k];
+            cout << endl;
+            }   
+        }
+    
+  return 0;
+}
