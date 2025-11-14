@@ -15,7 +15,7 @@ long long re(int a){
         if (a == 3){
             return 0;
         }
-    return 4 * re(a - 2) - re(a - 4);
+    return 4 * re(a - 2) - re(a - 4);//這題的重點是遞迴式，只要找到一般式及初始條件就很好解了
 }
 int main() {
     int n;
