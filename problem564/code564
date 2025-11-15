@@ -1,63 +1,43 @@
 #include <iostream>
-#include <string>
 using namespace std;
-int main(){
-    string X;
+
+int main() {
+    char X[1000];
     int num = 0;
-    getline(cin, X);
-    for (int i = 0; X[i] != '\0'; i++)
-    {
+
+    cin.getline(X, 1000);
+    for (int i = 0; X[i] != '\0'; i++) {
         num++;
     }
     int arr[num];
-    for (int i = 0;i < num; i++)
-    {
-       arr[i] = X[i] - '0';
+    for (int i = 0; i < num; i++) {
+        arr[i] = X[i] - '0';
     }
     int even[num / 2];
     int odd[num / 2 + 1];
     int idx1 = 0;
     int idx2 = 0;
-    if (num % 2 == 0)
-    {
-        for (int i = 0; i < num; i++)
-        {
-            if (i % 2 == 0)
-            {
-                even[idx1] = arr[i];
-                idx1++;
-            }else{
-                odd[idx2] = arr[i];
-                idx2++;
+    if (num % 2 == 0) {
+        for (int i = 0; i < num; i++) {
+            if (i % 2 == 0) {
+                even[idx1++] = arr[i];
+            } else {
+                odd[idx2++] = arr[i];
             }
         }
-    }else{
-        for (int i = 0; i < num; i++)
-        {
-            if (i % 2 == 1)
-            {
-                even[idx1] = arr[i];
-                idx1++;
-            }else{
-                odd[idx2] = arr[i];
-                idx2++;
+    } else {
+        for (int i = 0; i < num; i++) {
+            if (i % 2 == 1) {
+                even[idx1++] = arr[i];
+            } else {
+                odd[idx2++] = arr[i];
             }
-            
         }
     }
-    int A = 0;
-    int B = 0;
-    for (int i = 0; i < idx1; i++)
-    {
-        B += even[i];
-    }
-    for (int i = 0; i < idx2; i++)
-    {
-        A += odd[i];
-    }
-
-    if (A > B)
-    {
+    int A = 0, B = 0;
+    for (int i = 0; i < idx1; i++) B += even[i];
+    for (int i = 0; i < idx2; i++) A += odd[i];
+    if (A > B){
         cout << (A - B);
     }else{
         cout << (B - A);
