@@ -1,2 +1,3 @@
 # Computer-Programming-Practice
-using NTU CPC online judge to practicing programming 
+using the NTU CPC online judge to practice programming 
+DSnP 是關於黃鐘揚教授的「資料結構與程式設計」的作業專題
